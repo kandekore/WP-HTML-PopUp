@@ -10,6 +10,13 @@ jQuery(document).ready(function ($) {
         "</div>"
     );
     $(".custom-popup-overlay, .custom-popup-content").fadeIn();
+    // Set a flag in local storage after showing the popup
+    localStorage.setItem("popupShown", "yes");
+  }
+
+  // Check if the popup has already been shown
+  function hasPopupBeenShown() {
+    return localStorage.getItem("popupShown") === "yes";
   }
 
   // Close popup function
@@ -22,7 +29,9 @@ jQuery(document).ready(function ($) {
   // Click event for the button
   $("body").on("click", "#custom-popup-plugin-button", function (e) {
     e.preventDefault();
-    showPopup();
+    if (!hasPopupBeenShown()) {
+      showPopup();
+    }
   });
 
   // Close event for the close button
@@ -31,9 +40,9 @@ jQuery(document).ready(function ($) {
   // Close event for the overlay
   $("body").on("click", ".custom-popup-overlay", closePopup);
 
-  // Set the popup to show after delay, if delay is not -1
+  // Set the popup to show after delay, if delay is not -1 and the popup hasn't been shown yet
   var delay = parseInt(popup_params.delay, 10);
-  if (delay >= 0) {
+  if (delay >= 0 && !hasPopupBeenShown()) {
     setTimeout(showPopup, delay * 60000); // delay in minutes
   }
 });
