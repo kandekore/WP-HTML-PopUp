@@ -19,6 +19,9 @@ add_action('admin_menu', 'custom_popup_plugin_menu');
 
 // Create settings page content
 function custom_popup_plugin_settings_page() {
+	
+	$delay = get_option('custom_popup_plugin_delay', '0'); // '0' is the default value if the setting is not found
+    echo '<p>Current delay setting: ' . esc_html($delay) . ' minutes</p>';
     ?>
     <div class="wrap">
         <h1>Custom Popup Settings</h1>
@@ -53,7 +56,7 @@ function custom_popup_plugin_scripts() {
     wp_enqueue_script('custom-popup-plugin-js', plugin_dir_url(__FILE__) . 'custom-popup-plugin.js', array('jquery'), '1.0.0', true);
     wp_localize_script('custom-popup-plugin-js', 'popup_params', array(
         'htmlContent' => get_option('custom_popup_plugin_html_content'),
-        'delay' => get_option('custom_popup_plugin_delay', '0') * 60000 
+        'delay' => get_option('custom_popup_plugin_delay', '0') 
     ));
 }
 
@@ -71,4 +74,3 @@ function custom_popup_plugin_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'custom_popup_plugin_styles');
-
