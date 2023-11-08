@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+ 
   // Function to show the popup
   function showPopup() {
     var popupContent = popup_params.htmlContent;
@@ -45,4 +46,5 @@ jQuery(document).ready(function ($) {
   if (delay >= 0 && !hasPopupBeenShown()) {
     setTimeout(showPopup, delay * 60000); // delay in minutes
   }
+    console.log('Delay value:', delay);
 });
